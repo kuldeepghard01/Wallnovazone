@@ -106,37 +106,69 @@ footer {
     position: relative;
     background: black;
 }
+.iphone {
+    width: 300px;
+    height: 620px;
+    border: 8px solid black;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
+    background: black;
+}
 
-.phone img {
+.iphone img {
     width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
+/* Status bar */
 .status-bar {
     position: absolute;
     top: 5px;
     width: 100%;
-    text-align: center;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 10px;
     font-size: 14px;
     color: white;
     z-index: 2;
 }
 
-.apps {
+/* Apps grid (middle icons) */
+.apps-grid {
     position: absolute;
-    bottom: 10px;
+    top: 80px;
     width: 100%;
-    display: flex;
-    justify-content: space-around;
-    font-size: 28px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 25px;
+    text-align: center;
+    font-size: 26px;
     z-index: 2;
 }
 
+/* Bottom dock */
+.dock {
+    position: absolute;
+    bottom: 15px;
+    width: 90%;
+    left: 5%;
+    background: rgba(255,255,255,0.2);
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    font-size: 26px;
+    z-index: 2;
+}
+
+/* Close button */
 .close-btn {
     position: absolute;
     top: 20px;
     right: 20px;
+
 }
 </style>
 </head>
@@ -162,18 +194,36 @@ footer {
 
 <!-- Preview -->
 <div id="previewBox">
-    <div class="phone">
+    <div class="iphone">
 
-        <div class="status-bar">12:45 📶 🔋</div>
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 🔋</span>
+        </div>
 
+        <!-- Wallpaper -->
         <img id="previewImg">
 
-        <div class="apps">
+        <!-- Apps Grid -->
+        <div class="apps-grid">
             <span>📞</span>
             <span>💬</span>
             <span>📷</span>
             <span>🎵</span>
-            <span>🗂️</span>
+
+            <span>🌐</span>
+            <span>📁</span>
+            <span>🛒</span>
+            <span>📺</span>
+        </div>
+
+        <!-- Dock -->
+        <div class="dock">
+            <span>📞</span>
+            <span>💬</span>
+            <span>🌐</span>
+            <span>📷</span>
         </div>
 
     </div>
