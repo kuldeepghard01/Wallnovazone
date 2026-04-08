@@ -78,6 +78,12 @@ nav button:hover {
     color: white;
     cursor: pointer;
 }
+<div id="previewBox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; justify-content:center; align-items:center; z-index:999;">
+    <div style="width:300px; height:600px; border:5px solid white; border-radius:20px; overflow:hidden;">
+        <img id="previewImg" style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <button onclick="closePreview()" style="position:absolute; top:20px; right:20px; padding:10px;">❌</button>
+</div>
 
 footer {
     text-align: center;
@@ -103,6 +109,7 @@ footer {
 <button onclick="filterCategory('cars')">Cars</button>
 <button onclick="filterCategory('amoled')">AMOLED</button>
 <button onclick="filterCategory('quotes')">Quotes</button>
+<button onclick="filterCategory('live')">Live</button>
 </nav>
 
 <div class="container" id="wallpapers"></div>
@@ -131,11 +138,18 @@ const wallpapers = [
 {category:"amoled", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2160&q=80"},
 {category:"amoled", img:"https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=2160&q=80"},
 
-{category:"quotes", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=2160&q=80"}
+{category:"quotes", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=2160&q=80"},
+    {category:"live", type:"gif", img:"https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"},
+{category:"live", type:"gif", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"},
+
+{category:"live", type:"video", img:"videos/live1.mp4"},
+{category:"live", type:"video", img:"videos/live2.mp4"},
     
 ];
 
 let current = "all";
+
+let id = 0;
 
 function display() {
     let container = document.getElementById("wallpapers");
@@ -143,14 +157,18 @@ function display() {
 
     wallpapers.forEach(w => {
         if (current === "all" || w.category === current) {
+
             let div = document.createElement("div");
             div.className = "card " + w.category;
 
             div.innerHTML = `
-                <img src="${w.img}">
-                <button onclick="download('${w.img}')">Download</button>
+                <img src="${w.img}" onclick="openPreview('${w.img}')">
+                <button onclick="download('${w.img}')">⬇️ Download</button>
+                <button onclick="like(${id})">❤️ Like</button>
             `;
+
             container.appendChild(div);
+            id++;
         }
     });
 }
@@ -175,7 +193,7 @@ function filterCategory(cat) {
         .catch(() => {
             alert("Download failed!");
         });
-    
+
     
 }
 
@@ -190,6 +208,23 @@ document.getElementById("search").addEventListener("keyup", function() {
 });
 
 display();
+
+function like(id) {
+    let count = localStorage.getItem("like_"+id) || 0;
+    count++;
+    localStorage.setItem("like_"+id, count);
+    display();
+}
+
+function openPreview(img) {
+    document.getElementById("previewBox").style.display = "flex";
+    document.getElementById("previewImg").src = img;
+}
+
+function closePreview() {
+    document.getElementById("previewBox").style.display = "none";
+}
+
 </script>
 
 </body>
