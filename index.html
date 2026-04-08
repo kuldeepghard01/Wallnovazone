@@ -164,7 +164,17 @@ function display() {
             div.innerHTML = `
                 <img src="${w.img}" onclick="openPreview('${w.img}')">
                 <button onclick="download('${w.img}')">⬇️ Download</button>
-                <button onclick="like(${id})">❤️ Like</button>
+                function like(btn, id) {
+    let liked = localStorage.getItem("liked_"+id);
+
+    if (liked) {
+        localStorage.removeItem("liked_"+id);
+        btn.innerHTML = "❤️ Like";
+    } else {
+        localStorage.setItem("liked_"+id, true);
+        btn.innerHTML = "💖 Liked";
+    }
+}
             `;
 
             container.appendChild(div);
@@ -214,6 +224,9 @@ function like(id) {
     count++;
     localStorage.setItem("like_"+id, count);
     display();
+let liked = localStorage.getItem("liked_"+id);
+
+let likeText = liked ? "💖 Liked" : "❤️ Like";
 }
 
 function openPreview(img) {
