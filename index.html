@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WallNovaZone - HD Wallpapers</title>
+<title>WallNovaZone</title>
 
 <style>
 body {
@@ -64,7 +64,7 @@ nav button:hover {
     overflow: hidden;
 }
 
-.card img {
+.card img, .card video {
     width: 100%;
     height: 250px;
     object-fit: cover;
@@ -78,20 +78,27 @@ nav button:hover {
     color: white;
     cursor: pointer;
 }
-<div id="previewBox" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:black; justify-content:center; align-items:center; z-index:999;">
-    <div style="width:300px; height:600px; border:5px solid white; border-radius:20px; overflow:hidden;">
-        <img id="previewImg" style="width:100%; height:100%; object-fit:cover;">
-    </div>
-    <button onclick="closePreview()" style="position:absolute; top:20px; right:20px; padding:10px;">❌</button>
-</div>
 
 footer {
     text-align: center;
     padding: 10px;
     background: #1e293b;
 }
-</style>
 
+/* Preview */
+#previewBox {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+</style>
 </head>
 
 <body>
@@ -108,55 +115,55 @@ footer {
 <button onclick="filterCategory('nature')">Nature</button>
 <button onclick="filterCategory('cars')">Cars</button>
 <button onclick="filterCategory('amoled')">AMOLED</button>
-<button onclick="filterCategory('quotes')">Quotes</button>
 <button onclick="filterCategory('live')">Live</button>
 </nav>
 
 <div class="container" id="wallpapers"></div>
 
+<!-- Preview -->
+<div id="previewBox">
+    <div style="width:300px;height:600px;border:5px solid white;border-radius:20px;overflow:hidden;">
+        <img id="previewImg" style="width:100%;height:100%;object-fit:cover;">
+    </div>
+    <button onclick="closePreview()" style="position:absolute;top:20px;right:20px;">❌</button>
+</div>
+
 <footer>© 2026 WallNovaZone</footer>
 
 <script>
+
 const wallpapers = [
-{category:"gaming", img:"https://images.unsplash.com/photo-1542751371-adc38448a05e"},
-{category:"nature", img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470"},
-{category:"nature", img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"},
-{category:"cars", img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8"},
-{category:"cars", img:"https://images.unsplash.com/photo-1502877338535-766e1452684a"},
-{category:"amoled", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba"},
-{category:"amoled", img:"https://images.unsplash.com/photo-1520975916090-3105956dac38"},
-{category:"quotes", img:"https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d"},
-{category:"quotes", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7"},
-{category:"nature", img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=2160&q=80"},
-{category:"nature", img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470?auto=format&fit=crop&w=2160&q=80"},
 
-{category:"gaming", img:"https://images.unsplash.com/photo-1542751371-adc38448a05e?auto=format&fit=crop&w=2160&q=80"},
+{category:"gaming", img:"https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=1080&q=80"},
+{category:"gaming", img:"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=1080&q=80"},
 
-{category:"cars", img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=2160&q=80"},
-{category:"cars", img:"https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=2160&q=80"},
+{category:"nature", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80"},
+{category:"nature", img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1080&q=80"},
 
-{category:"amoled", img:"https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=2160&q=80"},
-{category:"amoled", img:"https://images.unsplash.com/photo-1520975916090-3105956dac38?auto=format&fit=crop&w=2160&q=80"},
+{category:"cars", img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1080&q=80"},
+{category:"cars", img:"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1080&q=80"},
 
-{category:"quotes", img:"https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&w=2160&q=80"},
-    {category:"live", type:"gif", img:"https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"},
-{category:"live", type:"gif", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"},
+{category:"amoled", img:"https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1080&q=80"},
+{category:"amoled", img:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1080&q=80"},
 
-{category:"live", type:"video", img:"videos/live1.mp4"},
-{category:"live", type:"video", img:"videos/live2.mp4"},
-    
+{category:"live", img:"https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"},
+{category:"live", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"}
+
 ];
 
 let current = "all";
-
 let id = 0;
 
 function display() {
     let container = document.getElementById("wallpapers");
     container.innerHTML = "";
+    id = 0;
 
     wallpapers.forEach(w => {
         if (current === "all" || w.category === current) {
+
+            let liked = localStorage.getItem("liked_"+id);
+            let likeText = liked ? "💖 Liked" : "❤️ Like";
 
             let div = document.createElement("div");
             div.className = "card " + w.category;
@@ -164,17 +171,7 @@ function display() {
             div.innerHTML = `
                 <img src="${w.img}" onclick="openPreview('${w.img}')">
                 <button onclick="download('${w.img}')">⬇️ Download</button>
-                function like(btn, id) {
-    let liked = localStorage.getItem("liked_"+id);
-
-    if (liked) {
-        localStorage.removeItem("liked_"+id);
-        btn.innerHTML = "❤️ Like";
-    } else {
-        localStorage.setItem("liked_"+id, true);
-        btn.innerHTML = "💖 Liked";
-    }
-}
+                <button onclick="like(this, ${id})">${likeText}</button>
             `;
 
             container.appendChild(div);
@@ -187,24 +184,37 @@ function filterCategory(cat) {
     current = cat;
     display();
 }
-    function download(url) {
-    fetch(url)
-        .then(response => response.blob())
-        .then(blob => {
-            const a = document.createElement('a');
-            const objectURL = URL.createObjectURL(blob);
-            a.href = objectURL;
-            a.download = "wallpaper.jpg";
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(objectURL);
-        })
-        .catch(() => {
-            alert("Download failed!");
-        });
 
-    
+function like(btn, id) {
+    let liked = localStorage.getItem("liked_"+id);
+
+    if (liked) {
+        localStorage.removeItem("liked_"+id);
+        btn.innerHTML = "❤️ Like";
+    } else {
+        localStorage.setItem("liked_"+id, true);
+        btn.innerHTML = "💖 Liked";
+    }
+}
+
+function openPreview(img) {
+    document.getElementById("previewBox").style.display = "flex";
+    document.getElementById("previewImg").src = img;
+}
+
+function closePreview() {
+    document.getElementById("previewBox").style.display = "none";
+}
+
+function download(url) {
+    fetch(url)
+    .then(res => res.blob())
+    .then(blob => {
+        let a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "wallpaper.jpg";
+        a.click();
+    });
 }
 
 // search
@@ -218,25 +228,6 @@ document.getElementById("search").addEventListener("keyup", function() {
 });
 
 display();
-
-function like(id) {
-    let count = localStorage.getItem("like_"+id) || 0;
-    count++;
-    localStorage.setItem("like_"+id, count);
-    display();
-let liked = localStorage.getItem("liked_"+id);
-
-let likeText = liked ? "💖 Liked" : "❤️ Like";
-}
-
-function openPreview(img) {
-    document.getElementById("previewBox").style.display = "flex";
-    document.getElementById("previewImg").src = img;
-}
-
-function closePreview() {
-    document.getElementById("previewBox").style.display = "none";
-}
 
 </script>
 
