@@ -160,12 +160,22 @@ function filterCategory(cat) {
     display();
 }
     function download(url) {
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = "wallpaper.jpg";
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+    fetch(url)
+        .then(response => response.blob())
+        .then(blob => {
+            const a = document.createElement('a');
+            const objectURL = URL.createObjectURL(blob);
+            a.href = objectURL;
+            a.download = "wallpaper.jpg";
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(objectURL);
+        })
+        .catch(() => {
+            alert("Download failed!");
+        });
+    
     
 }
 
