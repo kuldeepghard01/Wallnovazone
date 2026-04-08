@@ -84,25 +84,59 @@ footer {
     padding: 10px;
     background: #1e293b;
 }
-<div id="previewBox">
-    <div class="phone">
+#previewBox {
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:black;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
 
-        <div class="status-bar">12:45 📶 🔋</div>
+}
+.phone {
+    width: 300px;
+    height: 600px;
+    border: 6px solid white;
+    border-radius: 25px;
+    overflow: hidden;
+    position: relative;
+    background: black;
+}
 
-        <img id="previewImg">
+.phone img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
 
-        <div class="apps">
-            <span>📞</span>
-            <span>💬</span>
-            <span>📷</span>
-            <span>🎵</span>
-        </div>
+.status-bar {
+    position: absolute;
+    top: 5px;
+    width: 100%;
+    text-align: center;
+    font-size: 14px;
+    color: white;
+    z-index: 2;
+}
 
-    </div>
+.apps {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    font-size: 28px;
+    z-index: 2;
+}
 
-    <button onclick="closePreview()" class="close-btn">❌</button>
-</div>
-
+.close-btn {
+    position: absolute;
+    top: 20px;
+    right: 20px;
 }
 </style>
 </head>
@@ -128,10 +162,22 @@ footer {
 
 <!-- Preview -->
 <div id="previewBox">
-    <div style="width:300px;height:600px;border:5px solid white;border-radius:20px;overflow:hidden;">
-        <img id="previewImg" style="width:100%;height:100%;object-fit:cover;">
+    <div class="phone">
+
+        <div class="status-bar">12:45 📶 🔋</div>
+
+        <img id="previewImg">
+
+        <div class="apps">
+            <span>📞</span>
+            <span>💬</span>
+            <span>📷</span>
+            <span>🎵</span>
+        </div>
+
     </div>
-    <button onclick="closePreview()" style="position:absolute;top:20px;right:20px;">❌</button>
+
+    <button onclick="closePreview()" class="close-btn">❌</button>
 </div>
 
 <footer>© 2026 WallNovaZone</footer>
