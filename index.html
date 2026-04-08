@@ -84,19 +84,25 @@ footer {
     padding: 10px;
     background: #1e293b;
 }
+<div id="previewBox">
+    <div class="phone">
 
-/* Preview */
-#previewBox {
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
+        <div class="status-bar">12:45 📶 🔋</div>
+
+        <img id="previewImg">
+
+        <div class="apps">
+            <span>📞</span>
+            <span>💬</span>
+            <span>📷</span>
+            <span>🎵</span>
+        </div>
+
+    </div>
+
+    <button onclick="closePreview()" class="close-btn">❌</button>
+</div>
+
 }
 </style>
 </head>
