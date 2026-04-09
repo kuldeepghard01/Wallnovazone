@@ -1,228 +1,101 @@
-    <!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html><html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WallNovaZone</title>
+<title>WallNovaZone</title><style>
+body{margin:0;font-family:sans-serif;background:#0f172a;color:white}
+header{padding:15px;text-align:center;font-size:22px;background:linear-gradient(45deg,#0ea5e9,#9333ea)}
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #0f172a;
-    color: white;
-}
+.search-box{padding:10px}
+.search-box input{width:100%;padding:10px;border-radius:10px;border:none}
 
-/* HEADER */
-header {
-    padding: 15px;
-    text-align: center;
-    font-size: 22px;
-    background: linear-gradient(to right, #00c6ff, #0072ff);
-}
+.categories{display:flex;overflow:auto;padding:10px;gap:10px}
+.categories button{padding:8px 15px;border:none;border-radius:20px;background:#1e293b;color:white}
 
-/* SEARCH */
-.search-box {
-    padding: 10px;
-}
-.search-box input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-/* CATEGORY */
-.categories {
-    display: flex;
-    overflow-x: auto;
-}
-.categories button {
-    margin: 5px;
-    padding: 10px;
-}
-
-/* GRID */
-#wallpapers {
-    display: grid;
-    grid-template-columns: repeat(2,1fr);
-    gap: 10px;
-    padding: 10px;
-}
-
-.card {
-    background: #1e293b;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-.card img {
-    width: 100%;
-    height: 200px;
-    object-fit: cover;
-}
-
-.btn {
-    background: #06b6d4;
-    padding: 10px;
-    text-align: center;
-    cursor: pointer;
-}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:10px}
+.card{background:#1e293b;border-radius:15px;overflow:hidden}
+.card img{width:100%}
+.card button{width:100%;padding:10px;border:none;background:#06b6d4;color:white}
 
 /* PREVIEW */
-#previewBox {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: black;
-    display: none;
-    justify-content: center;
-    align-items: center;
+#previewBox{
+position:fixed;top:0;left:0;width:100%;height:100%;
+background:rgba(0,0,0,0.9);
+display:none;justify-content:center;align-items:center;z-index:9999
 }
 
-/* IPHONE */
-.iphone {
-    width: 300px;
-    height: 600px;
-    border-radius: 40px;
-    overflow: hidden;
-    position: relative;
-    background: black;
+.iphone{
+width:300px;height:620px;border:8px solid black;border-radius:40px;
+overflow:hidden;position:relative;background:black
 }
 
-/* IMAGE FIX 🔥 */
-.iphone img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+.notch{
+position:absolute;top:0;left:50%;transform:translateX(-50%);
+width:140px;height:25px;background:black;border-bottom-left-radius:20px;border-bottom-right-radius:20px;z-index:3
 }
 
-/* STATUS */
-.status-bar {
-    position: absolute;
-    top: 10px;
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    padding: 0 15px;
-    z-index: 2;
+.status-bar{
+position:absolute;top:30px;width:100%;display:flex;justify-content:space-between;padding:0 20px;font-size:14px;z-index:3
 }
 
-/* APPS */
-.apps-grid {
-    position: absolute;
-    top: 80px;
-    width: 100%;
-    display: grid;
-    grid-template-columns: repeat(4,1fr);
-    text-align: center;
-    font-size: 25px;
-    z-index: 2;
+/* LOCK SCREEN STYLE */
+.lock-screen{
+position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+text-align:center;z-index:3
 }
 
-/* DOCK */
-.dock {
-    position: absolute;
-    bottom: 10px;
-    width: 90%;
-    left: 5%;
-    background: rgba(255,255,255,0.2);
-    border-radius: 20px;
-    display: flex;
-    justify-content: space-around;
-    padding: 10px;
-    z-index: 2;
+.lock-time{font-size:40px;font-weight:bold}
+.lock-date{font-size:14px;opacity:0.8}
+
+.iphone img{
+position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1
 }
 
-/* CLOSE */
-.close-btn {
-    position: absolute;
-    right: 20px;
-    top: 20px;
-    font-size: 20px;
+.close-btn{
+position:absolute;top:20px;right:20px;background:white;color:black;border:none;padding:5px 10px;border-radius:10px
 }
-</style>
-</head>
 
-<body>
-
-<header>🔥 WallNovaZone</header>
-
-<div class="search-box">
+</style></head><body><header>🔥 WallNovaZone</header><div class="search-box">
 <input type="text" id="search" placeholder="Search wallpapers...">
-</div>
-
-<div class="categories">
+</div><div class="categories">
 <button onclick="filterCategory('all')">All</button>
-<button onclick="filterCategory('cars')">Cars</button>
+<button onclick="filterCategory('gaming')">Gaming</button>
 <button onclick="filterCategory('nature')">Nature</button>
+<button onclick="filterCategory('cars')">Cars</button>
+<button onclick="filterCategory('amoled')">AMOLED</button>
 <button onclick="filterCategory('live')">Live</button>
-</div>
+</div><div class="grid" id="wallpapers"></div><!-- PREVIEW --><div id="previewBox">
+<div class="iphone"><div class="notch"></div><div class="status-bar">
+<span>9:41</span>
+<span>📶 🔋</span>
+</div><img id="previewImg"><div class="lock-screen">
+<div class="lock-time">9:41</div>
+<div class="lock-date">Tuesday, July 17</div>
+</div></div><button onclick="closePreview()" class="close-btn">❌</button>
 
-<div id="wallpapers"></div>
+</div><script>
+let current="all";
 
-<!-- PREVIEW -->
-<div id="previewBox">
-    <div class="iphone">
-
-        <div class="status-bar">
-            <span>9:41</span>
-            <span>📶 🔋</span>
-        </div>
-
-        <img id="previewImg">
-
-        <div class="apps-grid">
-            <span>📞</span>
-            <span>💬</span>
-            <span>📷</span>
-            <span>🎵</span>
-            <span>🌐</span>
-            <span>📁</span>
-            <span>🛒</span>
-            <span>📺</span>
-        </div>
-
-        <div class="dock">
-            <span>📞</span>
-            <span>💬</span>
-            <span>🌐</span>
-            <span>📷</span>
-        </div>
-
-    </div>
-
-    <button class="close-btn" onclick="closePreview()">❌</button>
-</div>
-
-<script>
-
-let current = "all";
-
-let wallpapers = [
-{category:"cars", img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
-{category:"cars", img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8"},
-{category:"nature", img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470"},
-{category:"nature", img:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e"},
-{category:"live", img:"https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif"}
+let wallpapers=[
+{category:"cars",img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
+{category:"nature",img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470"},
+{category:"gaming",img:"https://images.unsplash.com/photo-1542751371-adc38448a05e"},
+{category:"amoled",img:"https://images.unsplash.com/photo-1519681393784-d120267933ba"},
+{category:"live",img:"https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"}
 ];
 
 function display(){
-let container = document.getElementById("wallpapers");
-container.innerHTML = "";
+let container=document.getElementById("wallpapers");
+container.innerHTML="";
 
-wallpapers.forEach(w=>{
-if(current=="all" || w.category==current){
-
-let div = document.createElement("div");
-div.className="card "+w.category;
+wallpapers.forEach((w,i)=>{
+if(current=="all"||w.category==current){
+let div=document.createElement("div");
+div.className="card";
 
 div.innerHTML=`
 <img src="${w.img}" onclick="openPreview('${w.img}')">
-<div class="btn" onclick="download('${w.img}')">⬇ Download</div>
-<div class="btn" onclick="like(this)">❤️ Like</div>
+<button onclick="download('${w.img}')">⬇ Download</button>
+<button onclick="like(this,${i})">❤️ Like</button>
 `;
 
 container.appendChild(div);
@@ -230,10 +103,7 @@ container.appendChild(div);
 });
 }
 
-function filterCategory(cat){
-current=cat;
-display();
-}
+function filterCategory(cat){current=cat;display();}
 
 function openPreview(img){
 document.getElementById("previewBox").style.display="flex";
@@ -241,23 +111,29 @@ document.getElementById("previewImg").src=img;
 }
 
 function closePreview(){
-document.getElementById("previewBox").style.display="none";
-}
+document.getElementById("previewBox").style.display="none";}
 
 function download(url){
 let a=document.createElement("a");
-a.href=url;
-a.download="wallpaper.jpg";
-a.click();
+a.href=url;a.download="wallpaper";a.click();
 }
 
-function like(btn){
-btn.innerHTML="💖 Liked";
+function like(btn,id){
+let liked=localStorage.getItem("liked_"+id);
+if(liked){localStorage.removeItem("liked_"+id);btn.innerHTML="❤️ Like";}
+else{localStorage.setItem("liked_"+id,true);btn.innerHTML="💖 Liked";}
 }
+
+// search
+
+document.getElementById("search").addEventListener("keyup",function(){
+let val=this.value.toLowerCase();
+let cards=document.querySelectorAll(".card");
+cards.forEach(card=>{
+card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
+});
+});
 
 display();
-
-</script>
-
-</body>
+</script></body>
 </html>
