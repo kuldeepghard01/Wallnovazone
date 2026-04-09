@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -6,8 +6,6 @@
 <title>WallNovaZone</title>
 
 <style>
-
-/* BODY */
 body {
     margin: 0;
     font-family: Arial;
@@ -20,121 +18,114 @@ header {
     padding: 15px;
     text-align: center;
     font-size: 22px;
-    font-weight: bold;
-    background: linear-gradient(45deg,#06b6d4,#9333ea);
+    background: linear-gradient(to right, #00c6ff, #0072ff);
+}
+
+/* SEARCH */
+.search-box {
+    padding: 10px;
+}
+.search-box input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+/* CATEGORY */
+.categories {
+    display: flex;
+    overflow-x: auto;
+}
+.categories button {
+    margin: 5px;
+    padding: 10px;
 }
 
 /* GRID */
-.container {
+#wallpapers {
     display: grid;
     grid-template-columns: repeat(2,1fr);
     gap: 10px;
     padding: 10px;
 }
 
-/* CARD */
 .card {
     background: #1e293b;
-    border-radius: 15px;
+    border-radius: 10px;
     overflow: hidden;
 }
 
-/* IMAGE */
 .card img {
     width: 100%;
     height: 200px;
     object-fit: cover;
 }
 
-/* BUTTON */
 .btn {
-    display: block;
-    text-align: center;
     background: #06b6d4;
     padding: 10px;
-    text-decoration: none;
-    color: white;
+    text-align: center;
+    cursor: pointer;
 }
 
-/* PREVIEW BOX */
+/* PREVIEW */
 #previewBox {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0,0,0,0.95);
+    background: black;
     display: none;
     justify-content: center;
     align-items: center;
-    z-index: 9999;
 }
 
 /* IPHONE */
 .iphone {
     width: 300px;
-    height: 620px;
-    border: 8px solid black;
+    height: 600px;
     border-radius: 40px;
     overflow: hidden;
     position: relative;
     background: black;
 }
 
-/* NOTCH */
-.notch {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 140px;
-    height: 25px;
-    background: black;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    z-index: 3;
-}
-
-/* IMAGE FULL FIT */
+/* IMAGE FIX 🔥 */
 .iphone img {
     position: absolute;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    top: 0;
-    left: 0;
-    z-index: 1;
 }
 
-/* STATUS BAR */
+/* STATUS */
 .status-bar {
     position: absolute;
-    top: 30px;
+    top: 10px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px;
-    font-size: 14px;
+    padding: 0 15px;
     z-index: 2;
 }
 
-/* APPS GRID */
+/* APPS */
 .apps-grid {
     position: absolute;
-    top: 100px;
+    top: 80px;
     width: 100%;
     display: grid;
     grid-template-columns: repeat(4,1fr);
-    gap: 25px;
     text-align: center;
-    font-size: 24px;
+    font-size: 25px;
     z-index: 2;
 }
 
 /* DOCK */
 .dock {
     position: absolute;
-    bottom: 15px;
+    bottom: 10px;
     width: 90%;
     left: 5%;
     background: rgba(255,255,255,0.2);
@@ -142,18 +133,16 @@ header {
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    font-size: 24px;
     z-index: 2;
 }
 
-/* CLOSE BTN */
+/* CLOSE */
 .close-btn {
     position: absolute;
     right: 20px;
     top: 20px;
     font-size: 20px;
 }
-
 </style>
 </head>
 
@@ -161,73 +150,112 @@ header {
 
 <header>🔥 WallNovaZone</header>
 
-<div class="container">
-
-<div class="card">
-<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" onclick="openPreview(this.src)">
-<a class="btn" href="https://images.unsplash.com/photo-1506744038136-46273834b3fb" download>⬇ Download</a>
+<div class="search-box">
+<input type="text" id="search" placeholder="Search wallpapers...">
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1493244040629-496f6d136cc3" onclick="openPreview(this.src)">
-<a class="btn" href="https://images.unsplash.com/photo-1493244040629-496f6d136cc3" download>⬇ Download</a>
+<div class="categories">
+<button onclick="filterCategory('all')">All</button>
+<button onclick="filterCategory('cars')">Cars</button>
+<button onclick="filterCategory('nature')">Nature</button>
+<button onclick="filterCategory('live')">Live</button>
 </div>
 
-<div class="card">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" onclick="openPreview(this.src)">
-<a class="btn" href="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" download>⬇ Download</a>
-</div>
-
-</div>
+<div id="wallpapers"></div>
 
 <!-- PREVIEW -->
 <div id="previewBox">
+    <div class="iphone">
 
-<div class="iphone">
+        <div class="status-bar">
+            <span>9:41</span>
+            <span>📶 🔋</span>
+        </div>
 
-<div class="notch"></div>
+        <img id="previewImg">
 
-<div class="status-bar">
-<span>9:41</span>
-<span>📶 🔋</span>
-</div>
+        <div class="apps-grid">
+            <span>📞</span>
+            <span>💬</span>
+            <span>📷</span>
+            <span>🎵</span>
+            <span>🌐</span>
+            <span>📁</span>
+            <span>🛒</span>
+            <span>📺</span>
+        </div>
 
-<img id="previewImg">
+        <div class="dock">
+            <span>📞</span>
+            <span>💬</span>
+            <span>🌐</span>
+            <span>📷</span>
+        </div>
 
-<div class="apps-grid">
-<span>📞</span>
-<span>💬</span>
-<span>📷</span>
-<span>🎵</span>
-<span>🌐</span>
-<span>📁</span>
-<span>🛒</span>
-<span>📺</span>
-</div>
+    </div>
 
-<div class="dock">
-<span>📞</span>
-<span>💬</span>
-<span>🌐</span>
-<span>📷</span>
-</div>
-
-</div>
-
-<button onclick="closePreview()" class="close-btn">❌</button>
-
+    <button class="close-btn" onclick="closePreview()">❌</button>
 </div>
 
 <script>
 
+let current = "all";
+
+let wallpapers = [
+{category:"cars", img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70"},
+{category:"cars", img:"https://images.unsplash.com/photo-1494976388531-d1058494cdd8"},
+{category:"nature", img:"https://images.unsplash.com/photo-1501785888041-af3ef285b470"},
+{category:"nature", img:"https://images.unsplash.com/photo-1470770841072-f978cf4d019e"},
+{category:"live", img:"https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif"}
+];
+
+function display(){
+let container = document.getElementById("wallpapers");
+container.innerHTML = "";
+
+wallpapers.forEach(w=>{
+if(current=="all" || w.category==current){
+
+let div = document.createElement("div");
+div.className="card "+w.category;
+
+div.innerHTML=`
+<img src="${w.img}" onclick="openPreview('${w.img}')">
+<div class="btn" onclick="download('${w.img}')">⬇ Download</div>
+<div class="btn" onclick="like(this)">❤️ Like</div>
+`;
+
+container.appendChild(div);
+}
+});
+}
+
+function filterCategory(cat){
+current=cat;
+display();
+}
+
 function openPreview(img){
-    document.getElementById("previewBox").style.display="flex";
-    document.getElementById("previewImg").src=img;
+document.getElementById("previewBox").style.display="flex";
+document.getElementById("previewImg").src=img;
 }
 
 function closePreview(){
-    document.getElementById("previewBox").style.display="none";
+document.getElementById("previewBox").style.display="none";
 }
+
+function download(url){
+let a=document.createElement("a");
+a.href=url;
+a.download="wallpaper.jpg";
+a.click();
+}
+
+function like(btn){
+btn.innerHTML="💖 Liked";
+}
+
+display();
 
 </script>
 
