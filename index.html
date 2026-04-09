@@ -6,6 +6,8 @@
 <title>WallNovaZone</title>
 
 <style>
+
+/* BODY */
 body {
     margin: 0;
     font-family: Arial;
@@ -13,116 +15,73 @@ body {
     color: white;
 }
 
+/* HEADER */
 header {
-    background: linear-gradient(90deg, #06b6d4, #9333ea);
     padding: 15px;
     text-align: center;
     font-size: 22px;
     font-weight: bold;
+    background: linear-gradient(45deg,#06b6d4,#9333ea);
 }
 
-.search-box {
-    padding: 10px;
-    text-align: center;
-}
-
-.search-box input {
-    width: 90%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-}
-
-nav {
-    display: flex;
-    overflow-x: auto;
-    background: #1e293b;
-}
-
-nav button {
-    padding: 10px;
-    border: none;
-    background: none;
-    color: white;
-    cursor: pointer;
-}
-
-nav button:hover {
-    background: #06b6d4;
-}
-
+/* GRID */
 .container {
-    padding: 10px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    grid-template-columns: repeat(2,1fr);
     gap: 10px;
+    padding: 10px;
 }
 
+/* CARD */
 .card {
     background: #1e293b;
-    border-radius: 10px;
+    border-radius: 15px;
     overflow: hidden;
 }
 
-.card img, .card video {
+/* IMAGE */
+.card img {
     width: 100%;
-    height: 250px;
+    height: 200px;
     object-fit: cover;
 }
 
-.card button {
-    width: 100%;
-    padding: 8px;
-    border: none;
-    background: #06b6d4;
-    color: white;
-    cursor: pointer;
-}
-
-footer {
+/* BUTTON */
+.btn {
+    display: block;
     text-align: center;
+    background: #06b6d4;
     padding: 10px;
-    background: #1e293b;
+    text-decoration: none;
+    color: white;
 }
-#previewBox {
-    display:none;
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:black;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
 
-}
-.iphone img {
-    position: absolute;
+/* PREVIEW BOX */
+#previewBox {
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    object-fit: cover;   /* full fill */
-    z-index: 1;
+    background: rgba(0,0,0,0.95);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
 }
-.iphone img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;   /* pura fill karega */
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-.iphone img {
-    max-width: 100%;
-    max-height: 100%;
-}
-    .iphone img {
-    object-fit: contain;  /* pura image dikhega */
+
+/* IPHONE */
+.iphone {
+    width: 300px;
+    height: 620px;
+    border: 8px solid black;
+    border-radius: 40px;
+    overflow: hidden;
+    position: relative;
     background: black;
-    }
-    /* NOTCH 🔥 */
+}
+
+/* NOTCH */
 .notch {
     position: absolute;
     top: 0;
@@ -136,16 +95,26 @@ footer {
     z-index: 3;
 }
 
-/* STATUS BAR FIX */
+/* IMAGE FULL FIT */
+.iphone img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+/* STATUS BAR */
 .status-bar {
     position: absolute;
-    top: 30px; /* notch ke niche */
+    top: 30px;
     width: 100%;
     display: flex;
     justify-content: space-between;
-    padding: 0 20px; /* space increase */
+    padding: 0 20px;
     font-size: 14px;
-    color: white;
     z-index: 2;
 }
 
@@ -155,10 +124,10 @@ footer {
     top: 100px;
     width: 100%;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(4,1fr);
     gap: 25px;
     text-align: center;
-    font-size: 26px;
+    font-size: 24px;
     z-index: 2;
 }
 
@@ -173,9 +142,18 @@ footer {
     display: flex;
     justify-content: space-around;
     padding: 10px;
-    font-size: 26px;
+    font-size: 24px;
     z-index: 2;
 }
+
+/* CLOSE BTN */
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 20px;
+}
+
 </style>
 </head>
 
@@ -183,166 +161,73 @@ footer {
 
 <header>🔥 WallNovaZone</header>
 
-<div class="search-box">
-<input type="text" id="search" placeholder="Search wallpapers...">
+<div class="container">
+
+<div class="card">
+<img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb" onclick="openPreview(this.src)">
+<a class="btn" href="https://images.unsplash.com/photo-1506744038136-46273834b3fb" download>⬇ Download</a>
 </div>
 
-<nav>
-<button onclick="filterCategory('all')">All</button>
-<button onclick="filterCategory('gaming')">Gaming</button>
-<button onclick="filterCategory('nature')">Nature</button>
-<button onclick="filterCategory('cars')">Cars</button>
-<button onclick="filterCategory('amoled')">AMOLED</button>
-<button onclick="filterCategory('live')">Live</button>
-</nav>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1493244040629-496f6d136cc3" onclick="openPreview(this.src)">
+<a class="btn" href="https://images.unsplash.com/photo-1493244040629-496f6d136cc3" download>⬇ Download</a>
+</div>
 
-<div class="container" id="wallpapers"></div>
+<div class="card">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" onclick="openPreview(this.src)">
+<a class="btn" href="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee" download>⬇ Download</a>
+</div>
 
-<!-- Preview -->
+</div>
+
+<!-- PREVIEW -->
 <div id="previewBox">
-    <div class="iphone">
 
-        <div class="notch"></div>
-        
-        <!-- Status Bar -->
-        <div class="status-bar">
-            <span>9:41</span>
-            <span>📶 🔋</span>
-        </div>
+<div class="iphone">
 
-        <!-- Wallpaper -->
-        <img id="previewImg">
+<div class="notch"></div>
 
-        <!-- Apps Grid -->
-        <div class="apps-grid">
-            <span>📞</span>
-            <span>💬</span>
-            <span>📷</span>
-            <span>🎵</span>
-
-            <span>💾</span>
-            <span>📁</span>
-            <span>🛒</span>
-            <span>📺</span>
-        </div>
-
-        <!-- Dock -->
-        <div class="dock">
-            <span>📞</span>
-            <span>💬</span>
-            <span>🌐</span>
-            <span>📅</span>
-        </div>
-
-    </div>
-
-    <button onclick="closePreview()" class="close-btn">❌</button>
+<div class="status-bar">
+<span>9:41</span>
+<span>📶 🔋</span>
 </div>
 
-<footer>© 2026 WallNovaZone</footer>
+<img id="previewImg">
+
+<div class="apps-grid">
+<span>📞</span>
+<span>💬</span>
+<span>📷</span>
+<span>🎵</span>
+<span>🌐</span>
+<span>📁</span>
+<span>🛒</span>
+<span>📺</span>
+</div>
+
+<div class="dock">
+<span>📞</span>
+<span>💬</span>
+<span>🌐</span>
+<span>📷</span>
+</div>
+
+</div>
+
+<button onclick="closePreview()" class="close-btn">❌</button>
+
+</div>
 
 <script>
 
-const wallpapers = [
-
-{category:"gaming", img:"https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?auto=format&fit=crop&w=1080&q=80"},
-{category:"gaming", img:"https://images.unsplash.com/photo-1606813907291-d86efa9b94db?auto=format&fit=crop&w=1080&q=80"},
-
-{category:"nature", img:"https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1080&q=80"},
-{category:"nature", img:"https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1080&q=80"},
-
-{category:"cars", img:"https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1080&q=80"},
-{category:"cars", img:"https://images.unsplash.com/photo-1493238792000-8113da705763?auto=format&fit=crop&w=1080&q=80"},
-
-{category:"amoled", img:"https://images.unsplash.com/photo-1518779578993-ec3579fee39f?auto=format&fit=crop&w=1080&q=80"},
-{category:"amoled", img:"https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=1080&q=80"},
-
-{category:"live", img:"https://media.giphy.com/media/ICOgUNjpvO0PC/giphy.gif"},
-{category:"live", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"},
-{category:"live", img:"https://media.giphy.com/media/3o6ZtpxSZbQRRnwCKQ/giphy.gif"},
-{category:"live", img:"https://media.giphy.com/media/l3q2K5jinAlChoCLS/giphy.gif"},
-{category:"live", img:"https://media.giphy.com/media/26ufdipQqU2lhNA4g/giphy.gif"},
-{category:"live", img:"https://media.giphy.com/media/xTiTnHvXHHxOTcdmxO/giphy.gif"},
-
-];
-
-let current = "all";
-let id = 0;
-
-function display() {
-    let container = document.getElementById("wallpapers");
-    container.innerHTML = "";
-    id = 0;
-
-    wallpapers.forEach(w => {
-        if (current === "all" || w.category === current) {
-
-            let liked = localStorage.getItem("liked_"+id);
-            let likeText = liked ? "💖 Liked" : "❤️ Like";
-
-            let div = document.createElement("div");
-            div.className = "card " + w.category;
-
-            div.innerHTML = `
-                <img src="${w.img}" onclick="openPreview('${w.img}')">
-                <button onclick="download('${w.img}')">⬇️ Download</button>
-                <button onclick="like(this, ${id})">${likeText}</button>
-            `;
-
-            container.appendChild(div);
-            id++;
-        }
-    });
+function openPreview(img){
+    document.getElementById("previewBox").style.display="flex";
+    document.getElementById("previewImg").src=img;
 }
 
-function filterCategory(cat) {
-    current = cat;
-    display();
+function closePreview(){
+    document.getElementById("previewBox").style.display="none";
 }
-
-function like(btn, id) {
-    let liked = localStorage.getItem("liked_"+id);
-
-    if (liked) {
-        localStorage.removeItem("liked_"+id);
-        btn.innerHTML = "❤️ Like";
-    } else {
-        localStorage.setItem("liked_"+id, true);
-        btn.innerHTML = "💖 Liked";
-    }
-}
-
-function openPreview(img) {
-    document.getElementById("previewBox").style.display = "flex";
-    document.getElementById("previewImg").src = img;
-}
-
-function closePreview() {
-    document.getElementById("previewBox").style.display = "none";
-}
-
-function download(url) {
-    fetch(url)
-    .then(res => res.blob())
-    .then(blob => {
-        let a = document.createElement("a");
-        a.href = URL.createObjectURL(blob);
-        a.download = "wallpaper.jpg";
-        a.click();
-    });
-}
-
-// search
-document.getElementById("search").addEventListener("keyup", function() {
-    let val = this.value.toLowerCase();
-    let cards = document.querySelectorAll(".card");
-
-    cards.forEach(card => {
-        card.style.display = card.className.includes(val) ? "block" : "none";
-    });
-});
-
-display();
 
 </script>
 
