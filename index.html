@@ -96,10 +96,27 @@ let wallpapers=[
 {category:"live", type:"video", img:"https://res.cloudinary.com/demo/video/upload/v1690000000/dark_glow.mp4"},
 {category:"live", type:"video", img:"https://res.cloudinary.com/demo/video/upload/v1690000000/red_energy.mp4"},
   ];
+function download(url) {
+    fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+            const a = document.createElement("a");
+            const objectURL = URL.createObjectURL(blob);
 
-function display(){
-let container=document.getElementById("wallpapers");
-container.innerHTML="";
+            a.href = objectURL;
+            a.download = "wallpaper";
+
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+
+            URL.revokeObjectURL(objectURL);
+        })
+        .catch(() => {
+            alert("Download failed! Try again.");
+        });
+  }
+
 
 wallpapers.forEach((w,i)=>{
 if(current=="all"||w.category==current){
