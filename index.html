@@ -53,6 +53,15 @@ position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1
 .close-btn{
 position:absolute;top:20px;right:20px;background:white;color:black;border:none;padding:5px 10px;border-radius:10px
 }
+.apply-btn{
+margin-top:15px;
+padding:10px 15px;
+border:none;
+border-radius:10px;
+background:#06b6d4;
+color:white;
+font-size:14px;
+}
 
 </style></head><body><header>🔥 WallNovaZone</header><div class="search-box">
 <input type="text" id="search" placeholder="Search wallpapers...">
@@ -70,8 +79,9 @@ position:absolute;top:20px;right:20px;background:white;color:black;border:none;p
 </div><img id="previewImg"><div class="lock-screen">
 <div class="lock-time">9:41</div>
 <div class="lock-date">Tuesday, July 17</div>
+<button class="apply-btn" onclick="applyWallpaper()">📲 Apply Wallpaper</button>
 </div></div><button onclick="closePreview()" class="close-btn">❌</button>
-
+   
 </div><script>
 let current="all";
 
@@ -168,7 +178,15 @@ let wallpapers=[
 {category:"live", img:"https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"},
 {category:"live", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"},
 ];
+let currentWallpaper = "";
 
+function applyWallpaper(){
+    if(currentWallpaper){
+        window.location.href = currentWallpaper;
+    } else {
+        alert("No wallpaper selected!");
+    
+}
 function display(){
 let container=document.getElementById("wallpapers");
 container.innerHTML="";
@@ -192,8 +210,11 @@ container.appendChild(div);
 function filterCategory(cat){current=cat;display();}
 
 function openPreview(img){
-document.getElementById("previewBox").style.display="flex";
-document.getElementById("previewImg").src=img;
+    document.getElementById("previewBox").style.display = "flex";
+    document.getElementById("previewImg").src = img;
+
+    currentWallpaper = img;
+
 }
 
 function closePreview(){
