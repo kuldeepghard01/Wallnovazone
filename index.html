@@ -179,14 +179,15 @@ let wallpapers=[
 {category:"live", img:"https://media.giphy.com/media/xT9IgzoKnwFNmISR8I/giphy.gif"},
 ];
 let currentWallpaper = "";
-
 function applyWallpaper(){
     if(currentWallpaper){
-        window.location.href = currentWallpaper;
+        download(currentWallpaper);
+        alert("Download ho gaya ✅\nAb gallery me jaake 'Set as wallpaper' karo");
     } else {
         alert("No wallpaper selected!");
-   } 
+    }
 }
+
 function display(){
 let container=document.getElementById("wallpapers");
 container.innerHTML="";
