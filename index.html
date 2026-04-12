@@ -80,6 +80,12 @@ font-size:14px;
 <div class="lock-time">9:41</div>
 <div class="lock-date">Tuesday, July 17</div>
 <button class="apply-btn" onclick="applyWallpaper()">📲 Apply Wallpaper</button>
+<div style="display:flex;gap:10px;justify-content:center;padding:10px;flex-wrap:wrap">
+<button onclick="openPage('about')">About</button>
+<button onclick="openPage('contact')">Contact</button>
+<button onclick="openPage('privacy')">Privacy</button>
+<button onclick="openPage('terms')">Terms</button>
+</div>
 </div></div><button onclick="closePreview()" class="close-btn">❌</button>
    
 </div><script>
@@ -217,8 +223,40 @@ function openPreview(img){
     currentWallpaper = img;
 
 }
+function openPage(page){
+let content="";
 
-function closePreview(){
+if(page=="about"){
+content=`<h2>About Us</h2>
+<p>Welcome to WallNovaZone. We provide high quality 4K, AMOLED, Gaming and Live wallpapers for mobile users. Our goal is to deliver unique and attractive wallpapers for free.</p>`;
+}
+
+if(page=="contact"){
+content=`<h2>Contact Us</h2>
+<p>Email: wallnovazone@gmail.com</p>
+<p>If you have any issue or suggestion, feel free to contact us.</p>`;
+}
+
+if(page=="privacy"){
+content=`<h2>Privacy Policy</h2>
+<p>We do not collect personal data. Third-party services like Google AdSense may use cookies to serve ads.</p>`;
+}
+
+if(page=="terms"){
+content=`<h2>Terms & Conditions</h2>
+<p>All wallpapers are for personal use only. Users are responsible for how they use the content.</p>`;
+}
+
+document.getElementById("pageContent").innerHTML=content;
+document.getElementById("pageBox").style.display="block";
+}
+
+function closePage(){
+document.getElementById("pageBox").style.display="none";
+}
+
+   
+   function closePreview(){
 document.getElementById("previewBox").style.display="none";}
 
  function download(url) {
@@ -261,5 +299,11 @@ card.style.display=card.innerText.toLowerCase().includes(val)?"block":"none";
 });
 
 display();
-</script></body>
+</script> 
+<div id="pageBox" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:#0f172a;color:white;overflow:auto;z-index:9999;padding:20px">
+<button onclick="closePage()" style="position:absolute;top:10px;right:10px">❌</button>
+
+<div id="pageContent"></div>
+</div>
+</body>
 </html>
