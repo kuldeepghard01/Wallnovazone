@@ -80,7 +80,9 @@ font-size:14px;
 <div class="lock-time">9:41</div>
 <div class="lock-date">Tuesday, July 17</div>
 <button class="apply-btn" onclick="applyWallpaper()">📲 Apply Wallpaper</button>
-<div style="display:flex;gap:10px;justify-content:center;padding:10px;flex-wrap:wrap">
+<input type="file" id="fileInput">
+<button onclick="uploadMedia()">Upload Wallpaper</button>
+   <div style="display:flex;gap:10px;justify-content:center;padding:10px;flex-wrap:wrap">
 <button onclick="openPage('about')">About</button>
 <button onclick="openPage('contact')">Contact</button>
 <button onclick="openPage('privacy')">Privacy</button>
@@ -282,6 +284,39 @@ document.getElementById("previewBox").style.display="none";}
 
 }
 
+async function uploadMedia(){
+    let file = document.getElementById("fileInput").files[0];
+
+    if(!file){
+        alert("File select karo!");
+        return;
+    }
+
+    let formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "ml_default");
+
+    let res = await fetch("https://api.cloudinary.com/v1_1/dlxywzihp/upload", {
+        method: "POST",
+        body: formData
+    });
+
+    let data = await res.json();
+
+    let url = data.secure_url;
+
+    // AUTO ADD TO WEBSITE
+    wallpapers.push({
+        category: "live",
+        img: url
+    });
+
+    display();
+
+    alert("Upload successful 🔥");
+}
+
+   
 function like(btn,id){
 let liked=localStorage.getItem("liked_"+id);
 if(liked){localStorage.removeItem("liked_"+id);btn.innerHTML="❤️ Like";}
