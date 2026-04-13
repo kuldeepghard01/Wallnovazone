@@ -62,9 +62,18 @@ background:#06b6d4;
 color:white;
 font-size:14px;
 }
+.apply-btn{
+position:absolute;
+bottom:80px;
+left:50%;
+transform:translateX(-50%);
+}
 
 </style></head><body><header>🔥 WallNovaZone</header><div class="search-box">
-<input type="text" id="search" placeholder="Search wallpapers...">
+<input type="file" id="fileInput">
+<button onclick="uploadMedia()">Upload Wallpaper</button>
+   
+   <input type="text" id="search" placeholder="Search wallpapers...">
 </div><div class="categories">
 <button onclick="filterCategory('all')">All</button>
 <button onclick="filterCategory('gaming')">Gaming</button>
@@ -80,8 +89,6 @@ font-size:14px;
 <div class="lock-time">9:41</div>
 <div class="lock-date">Tuesday, July 17</div>
 <button class="apply-btn" onclick="applyWallpaper()">📲 Apply Wallpaper</button>
-<input type="file" id="fileInput">
-<button onclick="uploadMedia()">Upload Wallpaper</button>
    <div style="display:flex;gap:10px;justify-content:center;padding:10px;flex-wrap:wrap">
 <button onclick="openPage('about')">About</button>
 <button onclick="openPage('contact')">Contact</button>
