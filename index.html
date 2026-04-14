@@ -313,12 +313,14 @@ async function uploadMedia(){
 
     let url = data.secure_url;
 
-    // AUTO ADD TO WEBSITE
+   console.log(url); // check
+  
+   // AUTO ADD TO WEBSITE
     wallpapers.push({
         category: "live",
         img: url
     });
-
+current = "all";
     display();
 
     alert("Upload successful 🔥");
